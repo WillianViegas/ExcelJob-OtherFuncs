@@ -1,0 +1,9 @@
+C:\Users\wviegas\source\repos\ExcelJob\ExcelJob\bin\Debug\ExcelJob.exe.config
+C:\Users\wviegas\source\repos\ExcelJob\ExcelJob\bin\Debug\ExcelJob.exe
+C:\Users\wviegas\source\repos\ExcelJob\ExcelJob\bin\Debug\ExcelJob.pdb
+C:\Users\wviegas\source\repos\ExcelJob\ExcelJob\obj\Debug\ExcelJob.csprojAssemblyReference.cache
+C:\Users\wviegas\source\repos\ExcelJob\ExcelJob\obj\Debug\ExcelJob.csproj.CoreCompileInputs.cache
+C:\Users\wviegas\source\repos\ExcelJob\ExcelJob\obj\Debug\ExcelJob.exe
+C:\Users\wviegas\source\repos\ExcelJob\ExcelJob\obj\Debug\ExcelJob.pdb
+C:\Users\wviegas\source\repos\ExcelJob\ExcelJob\obj\Debug\ExcelJob.csproj.CopyComplete
+C:\Users\wviegas\source\repos\ExcelJob\ExcelJob\bin\Debug\OpenPop.dll
