@@ -14,32 +14,32 @@ namespace ExcelJob
 {
     class MailFuncs
     {
-        public static void SendMail(string emailDe, string emailPara, string assunto, string corpo)
+        public static void SendEmail(string emailFrom, string emailTo, string subject, string body)
         {
             using (SmtpClient client = new SmtpClient("smtp.gmail.com", 587)
             {
-                Credentials = new NetworkCredential("username", "pass"),
+                Credentials = new NetworkCredential("email@gmail.com", "pass"),
                 EnableSsl = true
             })
             {
-                client.Send(emailDe, emailPara, assunto, corpo);
+                client.Send(emailFrom, emailTo, subject, body);
             }
         }
 
-        public static void SendMailWithAttachment(string emailDe, string emailPara, string assunto, string corpo, string file)
+        public static void SendEmailWithAttachment(string emailFrom, string emailTo, string subject, string body, string file)
         {
 
             using (SmtpClient client = new SmtpClient("smtp.gmail.com", 587)
             {
-                Credentials = new NetworkCredential("username", "pass"),
+                Credentials = new NetworkCredential("email@gmail.com", "pass"),
                 EnableSsl = true
             })
             {
                 MailMessage message = new MailMessage(
-                emailDe,
-                emailPara,
-                assunto,
-                corpo);
+                emailFrom,
+                emailTo,
+                subject,
+                body);
 
                 if (System.IO.File.Exists(file))
                 {
@@ -49,8 +49,13 @@ namespace ExcelJob
                     disposition.CreationDate = System.IO.File.GetCreationTime(file);
                     disposition.ModificationDate = System.IO.File.GetLastWriteTime(file);
                     disposition.ReadDate = System.IO.File.GetLastAccessTime(file);
+
                     message.Attachments.Add(data);
                 }
+
+                //permite dar reply caso o assunto seja o mesmo
+                message.Headers.Add("In-Reply-To", "<Message-ID Value>");
+                message.Headers.Add("References", "<Message-ID Value>");
 
                 try
                 {
@@ -69,7 +74,7 @@ namespace ExcelJob
             using(OpenPop.Pop3.Pop3Client client = new OpenPop.Pop3.Pop3Client())
             {
                 client.Connect("pop.gmail.com", 995, true);
-                client.Authenticate("recent:username", "pass");
+                client.Authenticate("recent:email@gmail.com", "pass");
 
                 if (client.Connected)
                 {
@@ -99,7 +104,7 @@ namespace ExcelJob
             using(OpenPop.Pop3.Pop3Client client = new OpenPop.Pop3.Pop3Client())
             {
                 client.Connect("pop.gmail.com", 995, true);
-                client.Authenticate("recent:username", "pass");
+                client.Authenticate("recent:email@gmail.com", "pass");
 
                 if (client.Connected)
                 {
@@ -123,6 +128,34 @@ namespace ExcelJob
                 }
             }
         }
-            
+
+        public static string FindEmailBySubject(string subject)
+        {
+            using (OpenPop.Pop3.Pop3Client client = new OpenPop.Pop3.Pop3Client())
+            {
+                client.Connect("pop.gmail.com", 995, true);
+                client.Authenticate("recent:email@gmail.com", "pass");
+
+                if (client.Connected)
+                {
+                    int count = client.GetMessageCount();
+                    List<Message> allMessages = new List<Message>(count);
+                    for (int i = count; i > 0; i--)
+                    {
+                        allMessages.Add(client.GetMessage(i));
+                    }
+
+                    foreach (Message msg in allMessages)
+                    {
+                        if(subject == msg.Headers.Subject)
+                        {
+                            return subject;
+                        }
+                    }
+                }
+                return "";
+            }
+        }
+
     }
 }

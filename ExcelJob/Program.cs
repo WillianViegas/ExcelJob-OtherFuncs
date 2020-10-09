@@ -73,10 +73,11 @@ namespace ExcelJob
             PDFFormat.ConverterWordParaPDF(@"C:\Users\wviegas\Documents\comum.docx", @"convertido.pdf");
 
             //enviar email
-            // MailFuncs.SendMail("xxxx", "xxxx", "teste email", "testando email");
+            //  MailFuncs.SendEmail("emailFrom", "emailTo", "teste email", "testando email");
 
-            string file = @"C:\Users\wviegas\Documents\will\planilha.xlsx";
-            MailFuncs.SendMailWithAttachment("xxx@gmail.com", "zzz@gmail.com", "Enviando Attachment", "Enviando Planilha", file);
+            string subject = MailFuncs.FindEmailBySubject("Enviando Attachment");
+            string file = @"C:\Users\wviegas\Documents\will\planilha.docx";
+            MailFuncs.SendEmailWithAttachment("emailFrom", "emailTo", subject, "segue planilha", file);
         }
     }
 }
