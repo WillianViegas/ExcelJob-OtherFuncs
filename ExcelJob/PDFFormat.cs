@@ -9,30 +9,25 @@ namespace ExcelJob
 {
     class PDFFormat
     {
+        public static Word.Application word = new Word.Application();
         public static Microsoft.Office.Interop.Word.Document wordDocument { get; set; }
-       public static void ConverterWordParaPDF(string origem, string destino)
+       
+        public static void ConverterWordParaPDF(string origem, string destino)
         {
             try
             {
-                if (!System.IO.File.Exists(destino))
-                {
-                    Word.Application word = new Word.Application();
                     wordDocument = word.Documents.Open(origem);
                     wordDocument.ExportAsFixedFormat(destino, Word.WdExportFormat.wdExportFormatPDF);
-                    
-                    word.Quit();
-                    wordDocument.Close();
                     Console.WriteLine("Convertido com sucesso");
-                }
-                else
-                {
-                    Console.WriteLine("Arquivo destino já existe");
-                }
-
             }
             catch(Exception e)
             {
                 throw new Exception(e.Message);
+            }
+            finally
+            {
+                wordDocument.Close();
+                word.Quit();
             }
         }
     }

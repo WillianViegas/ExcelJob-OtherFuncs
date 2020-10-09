@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Configuration;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
@@ -65,7 +66,8 @@ namespace ExcelJob
 
             Console.WriteLine("------------------");
 
-            MailFuncs.ReadEmail();
+           //MailFuncs.ReadEmail();
+           //MailFuncs.ListEmail();
 
             //converter docx para PDF
             PDFFormat.ConverterWordParaPDF(@"C:\Users\wviegas\Documents\comum.docx", @"convertido.pdf");
@@ -73,6 +75,8 @@ namespace ExcelJob
             //enviar email
             // MailFuncs.SendMail("xxxx", "xxxx", "teste email", "testando email");
 
+            string file = @"C:\Users\wviegas\Documents\will\planilha.xlsx";
+            MailFuncs.SendMailWithAttachment("xxx@gmail.com", "zzz@gmail.com", "Enviando Attachment", "Enviando Planilha", file);
         }
     }
 }
